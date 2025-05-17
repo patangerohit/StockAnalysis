@@ -29,4 +29,21 @@ public class StockController {
         List<StockQuote> quotes = stockService.getBatchQuotes(symbols);
         return ResponseEntity.ok(quotes);
     }
+    
+    @PostMapping("/addToPortfolio")
+    public ResponseEntity<Void> addStock(@RequestParam String symbol) {
+        stockService.addStock(symbol);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("removeFromPortfolio/{symbol}")
+    public ResponseEntity<Void> removeStock(@PathVariable String symbol) {
+        stockService.removeStock(symbol);
+        return ResponseEntity.ok().build();
+   }
+
+   @GetMapping("/getPortfolio")
+    public List<String> getAllTrackedStocks() {
+        return stockService.getTrackedSymbols();
+    }
 }
